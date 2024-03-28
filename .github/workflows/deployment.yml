@@ -32,4 +32,4 @@ jobs:
       env:
         NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
         NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-      run: netlify deploy --prod --dir=dist/browser --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN
+      run: netlify deploy --prod --dir=dist/my-github/browser --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN
