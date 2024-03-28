@@ -1,0 +1,5 @@
+<div   class="bg-primmerGreen flex flex-col rounded-lg h-[calc(99vh-150px)] overflow-hidden">
+<app-column-header [length]="7" [title]="columnType" />
+<app-task-list [tasks]="tasks()" (dragStartEvent)="handelDrageEvent($event)" />
+<app-add-button (emitButtonClick) ="handleButtonEvent($event)"  [columnType]="columnType" class="flex grow flex-col-reverse mb-6" />
+</div>

@@ -1,0 +1,9 @@
+<div  class="w-[98%] ps-5 pe-5">
+    <form appClickOutside [ignoreClass]="'mat-mdc-button-touch-target'" (clickOutsideElement)="onOutsideClick()">
+        <mat-form-field class="flex w-full custom-mat-input">
+          <input   matInput #message maxlength="256"
+          (keyup.enter)="onEnter(message.value)"
+          placeholder="Start typing to create a draft"> 
+        </mat-form-field>
+      </form>
+</div>

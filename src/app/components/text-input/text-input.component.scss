@@ -1,0 +1,12 @@
+:host ::ng-deep .custom-mat-input .mat-mdc-text-field-wrapper {
+    background-color: white;
+    border: 1px solid blue;
+    border-radius: 15px;
+    color: black;
+}
+:host ::ng-deep .custom-mat-input .mat-mdc-text-field-wrapper input {
+    color: black;
+}
+:host ::ng-deep .custom-mat-input .mat-mdc-text-field-wrapper input::placeholder {
+    color: black;
+}

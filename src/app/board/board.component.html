@@ -1,0 +1,6 @@
+<div class=" ms-5 me-5 grid grid-cols-3 gap-4 ">
+    <app-board-column (dragStartEvent)="handelDragStart($event)" appDragDrop (dropEventEmitter)="handleDrop(statusEnum.toDo)"  (buttonEventEmitter) ="handleButtonEmit($event)" [columnType]="statusEnum.toDo" [tasks]="store.todo()" />
+    <app-board-column appDragDrop (dragStartEvent)="handelDragStart($event)" (dropEventEmitter)="handleDrop(statusEnum.inProgress)"   (buttonEventEmitter) ="handleButtonEmit($event)" [columnType]="statusEnum.inProgress" [tasks]="store.inProgress()" />
+    <app-board-column appDragDrop (dragStartEvent)="handelDragStart($event)" (dropEventEmitter)="handleDrop(statusEnum.done)" (buttonEventEmitter) ="handleButtonEmit($event)" [columnType]="statusEnum.done"  [tasks]="store.done()" />
+  </div>
+  
