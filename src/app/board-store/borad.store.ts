@@ -11,6 +11,7 @@ import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { debounceTime, distinctUntilChanged, pipe, switchMap } from 'rxjs';
 import { tapResponse } from '@ngrx/operators';
 import { ApiService } from '../services/api.service';
+import { v4 as uuidv4 } from 'uuid';
 type TaskState = {
   tasks: Task[];
   search: string;
@@ -35,7 +36,7 @@ export const TaskStore = signalStore(
     addTask(title: string, status: TaskStatus): void {
       // 👇 Updating state using the `patchState` function.
       const task: Task = {
-        id: '1233',
+        id: uuidv4(),
         title: title,
         created: '201.100200',
         status: status,
