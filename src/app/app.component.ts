@@ -44,4 +44,7 @@ export class AppComponent {
   handleCloseInputEvent() {
     this.taskService.closeInput();
   }
+  handleValueChnage($event: string) {
+    this.store.searchChange($event);
+    }
 }

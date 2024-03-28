@@ -1,5 +1,5 @@
 <div  class="flex flex-col h-[calc(98vh-280px)] overflow-y-scroll">
     @for(task of tasks(); track task.id) {
-        <app-task-card [attr.draggable]="true"  [title]="task.title" (dragstart)="onDragStart(task)" />
+        <app-task-card (removeButtonEmitter)="handleRemoveTask($event)" [attr.draggable]="true" [taskId]="task.id"  [title]="task.title" (dragstart)="onDragStart(task)" />
     }
 </div>

@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 
 @Component({
@@ -7,8 +13,13 @@ import { MatCardModule } from '@angular/material/card';
   imports: [MatCardModule],
   templateUrl: './task-card.component.html',
   styleUrl: './task-card.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TaskCardComponent {
-  @Input() title!: string
+  @Input() title!: string;
+  @Input() taskId!: string;
+  @Output() removeButtonEmitter = new EventEmitter<string>();
+  handleRemoveTask() {
+    this.removeButtonEmitter.emit(this.taskId);
+  }
 }

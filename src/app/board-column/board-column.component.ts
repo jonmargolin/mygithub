@@ -32,10 +32,14 @@ export class BoardColumnComponent {
   @Input() dropListId!: string;
   @Output() buttonEventEmitter = new EventEmitter<TaskStatus>();
   @Output() dragStartEvent = new EventEmitter<Task>();
+  @Output() removeTaskEvent = new EventEmitter<string>();
   handleButtonEvent($event: TaskStatus) {
     this.buttonEventEmitter.emit($event);
   }
   handelDrageEvent(task: Task) {
     this.dragStartEvent.emit(task);
+  }
+  handleRemoveTask($event: string) {
+    this.removeTaskEvent.emit($event);
   }
 }

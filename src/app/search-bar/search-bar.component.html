@@ -1,12 +1,7 @@
 <div class="flex w-full flex-col">
     <mat-divider />
     <mat-form-field class="flex w-full">
-  <input placeholder="Filter by keyword or by field" matInput type="text" [(ngModel)]="value">
-  @if (value) {
-    <button matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
-      <mat-icon>close</mat-icon>
-    </button>
-  }
+  <input appDebounce [debounceTime]="1000" (debounceEvent)="onSearch($event)" placeholder="Filter by keyword or by field" matInput type="text" >
 </mat-form-field>
 <mat-divider />
 </div>

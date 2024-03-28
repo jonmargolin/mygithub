@@ -10,23 +10,21 @@ import { taskMock } from './task.mock';
 import { computed } from '@angular/core';
 type TaskState = {
   tasks: Task[];
+  search: string;
 };
 
 const initialState: TaskState = {
   tasks: taskMock,
+  search: '',
 };
 export const TaskStore = signalStore(
   withState(initialState),
-  withComputed(({ tasks }) => ({
-    todo: computed(() =>
-      tasks().filter((item) => item.status === TaskStatus.toDo),
-    ),
+  withComputed(({ tasks, search }) => ({
+    todo: computed(() => filterTask(tasks(), TaskStatus.toDo, search())),
     inProgress: computed(() =>
-      tasks().filter((item) => item.status === TaskStatus.inProgress),
+      filterTask(tasks(), TaskStatus.inProgress, search()),
     ),
-    done: computed(() =>
-      tasks().filter((item) => item.status === TaskStatus.done),
-    ),
+    done: computed(() => filterTask(tasks(), TaskStatus.done, search())),
   })),
   withMethods((store) => ({
     addTask(title: string, status: TaskStatus): void {
@@ -54,5 +52,31 @@ export const TaskStore = signalStore(
         }),
       }));
     },
+    removeTask(id: string): void {
+      patchState(store, (state) => ({ tasks: removeTask(id, state.tasks) }));
+    },
+    searchChange(text: string): void {
+      patchState(store, () => ({ search: text }));
+    },
   })),
 );
+const removeTask = (id: string, tasks: Task[]): Task[] => {
+  const index = tasks.findIndex((task) => task.id === id);
+  const taskList = [...tasks];
+  taskList.splice(index, 1);
+  return taskList;
+};
+const filterTask = (
+  tasks: Task[],
+  status: TaskStatus,
+  search: string,
+): Task[] => {
+  const filterTask = tasks.filter((item) => item.status === status);
+  if (search !== '') {
+    const filterSearch = filterTask.filter((task) =>
+      task.title.toLowerCase().includes(search.toLowerCase()),
+    );
+    return filterSearch;
+  }
+  return filterTask;
+};

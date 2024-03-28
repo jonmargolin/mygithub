@@ -22,7 +22,11 @@ import { DragDropDirective } from '../directive/drag-drop.directive';
 export class TaskListComponent {
   tasks = input<Task[]>();
   @Output() dragStartEvent = new EventEmitter<Task>();
+  @Output() removeTaskEvent = new EventEmitter<string>();
   onDragStart(task: Task) {
     this.dragStartEvent.emit(task);
+  }
+  handleRemoveTask($event: string) {
+    this.removeTaskEvent.emit($event);
   }
 }

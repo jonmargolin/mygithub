@@ -37,4 +37,7 @@ export class BoardComponent {
   handelDragStart($event: Task) {
     this.currentDraggedTask = $event;
   }
+  handelRemoveTask($event: string) {
+    this.store.removeTask($event);
+  }
 }
