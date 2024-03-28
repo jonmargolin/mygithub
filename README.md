@@ -23,7 +23,7 @@
  all communication between to components is done via event outputs,\
  and received in the main components to communicate with the store and services.\
  <br/>
- ![alt text](https://github.com/jonmargolin/dice-game/blob/main/flow.png?raw=true)
+ ![alt text](https://github.com/jonmargolin/mygithub/blob/main/flow.png?raw=true)
 
       
 
