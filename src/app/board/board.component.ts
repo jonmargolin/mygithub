@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Output, inject } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Output,
+  inject,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { BoardColumnComponent } from '../board-column/board-column.component';
 import { TaskStore } from '../board-store/borad.store';
 import { Task, TaskStatus } from '../board-store/board.model';
@@ -12,6 +18,7 @@ import { DragDropDirective } from '../directive/drag-drop.directive';
   providers: [TaskService],
   templateUrl: './board.component.html',
   styleUrl: './board.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BoardComponent {
   readonly store = inject(TaskStore);

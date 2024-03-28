@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TextInputComponent } from './text-input.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('TextInputComponent', () => {
   let component: TextInputComponent;
@@ -8,7 +10,7 @@ describe('TextInputComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TextInputComponent],
+      imports: [NoopAnimationsModule, TextInputComponent, HttpClientModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(TextInputComponent);

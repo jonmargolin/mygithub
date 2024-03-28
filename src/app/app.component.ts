@@ -1,4 +1,9 @@
-import { Component, OnInit, inject } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  inject,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
@@ -25,6 +30,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatProgressSpinnerModule,
   ],
   providers: [TaskStore, TaskService],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnInit {
   title = 'my-github';

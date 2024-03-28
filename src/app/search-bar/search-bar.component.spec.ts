@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SearchBarComponent } from './search-bar.component';
 
 describe('SearchBarComponent', () => {
@@ -8,7 +8,7 @@ describe('SearchBarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SearchBarComponent],
+      imports: [NoopAnimationsModule, SearchBarComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(SearchBarComponent);

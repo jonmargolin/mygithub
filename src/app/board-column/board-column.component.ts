@@ -3,7 +3,6 @@ import {
   Component,
   EventEmitter,
   Input,
-  OnInit,
   Output,
   computed,
   input,
@@ -28,7 +27,7 @@ import { CommonModule, JsonPipe } from '@angular/common';
   styleUrl: './board-column.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BoardColumnComponent  {
+export class BoardColumnComponent {
   readonly tasks = input<Task[]>();
   taskLength = computed(() => {
     return this.tasks()?.length;
