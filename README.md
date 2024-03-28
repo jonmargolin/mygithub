@@ -1,27 +1,32 @@
 # MyGithub
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.2.
+## Installation
+ * This is an  angular application run npm install to install all dependencies
+ * Run ng serve or npm start to run the application locally.
+ * Run ng build or npm run build to build an production version of the application.
+ * To add the husky gitHook run  npm run prepare it will run the pre  commit hook for linting the application
 
-## Development server
+ ## ci cd pipeline
+     This repo have an pipeline that run lint and unittest for each pr and deployment for netlify hosting.
+     Todo add e2e  testing  with playwright
+## CSS Style
+###  Components
+* the application use angular material for all the components
+* For custom style  the application use Tailwindcss. changes could be made in the tailwind.config file in order to extend it.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## State Management
+ the application use NgRx SignalStore to manage the application state the  way the application is isolated and  could be integrated into different applications with out any dependencies.
 
-## Code scaffolding
+## Data Flow
+ the store is the single source of true in order to save on data integrity.\
+ all the manipulating is done in the store.
+ all communication between to components is done via event outputs,\
+ and received in the main components to communicate with the store and services.\
+ <br/>
+ ![alt text](https://github.com/jonmargolin/dice-game/blob/main/flow.png?raw=true)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+      
 
-## Build
+ 
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
