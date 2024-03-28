@@ -26,6 +26,7 @@ jobs:
     - name: Run unit tests
       run: npm run test
     - name: List output directory contents
+      working-directory: dist/my-github/browser
       run: ls -l
     - uses: actions/checkout@v2
     - name: Install Netlify CLI
