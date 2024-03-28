@@ -5,8 +5,6 @@ import { MatIconModule } from '@angular/material/icon';
   standalone: true,
   imports: [MatIconModule],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.scss'
+  styleUrl: './header.component.scss',
 })
-export class HeaderComponent {
-
-}
+export class HeaderComponent {}

@@ -9,10 +9,9 @@ describe('BoardColumnComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [BoardColumnComponent, CdkDrag]
-    })
-    .compileComponents();
-    
+      imports: [BoardColumnComponent, CdkDrag],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(BoardColumnComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

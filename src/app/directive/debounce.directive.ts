@@ -14,9 +14,9 @@ import { Subject, Subscription, debounceTime } from 'rxjs';
 })
 export class DebounceDirective implements OnDestroy {
   @Input() debounceTime = 500; // Default debounce time in milliseconds
-  @Output() debounceEvent = new EventEmitter<any>();
+  @Output() debounceEvent = new EventEmitter<unknown>();
 
-  private inputs = new Subject<any>();
+  private inputs = new Subject<unknown>();
   private subscription: Subscription;
 
   constructor() {
@@ -26,7 +26,7 @@ export class DebounceDirective implements OnDestroy {
   }
 
   @HostListener('input', ['$event'])
-  onInput(event: any) {
+  onInput(event: InputEvent) {
     event.preventDefault();
     event.stopPropagation();
     this.inputs.next(event);

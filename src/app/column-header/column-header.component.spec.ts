@@ -8,10 +8,9 @@ describe('ColumnHeaderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ColumnHeaderComponent]
-    })
-    .compileComponents();
-    
+      imports: [ColumnHeaderComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(ColumnHeaderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

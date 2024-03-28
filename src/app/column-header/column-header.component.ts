@@ -13,8 +13,8 @@ export class ColumnHeaderComponent {
   @Input() length!: number;
   public getColor(): string {
     if (this.title === TaskStatus.inProgress) {
-    return "bg-yellow-200";
-   }
-   return "bg-yellow-200"
+      return 'bg-yellow-200';
+    }
+    return 'bg-yellow-200';
   }
 }
