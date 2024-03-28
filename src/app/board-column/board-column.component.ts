@@ -3,7 +3,9 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnInit,
   Output,
+  computed,
   input,
 } from '@angular/core';
 import { ColumnHeaderComponent } from '../column-header/column-header.component';
@@ -26,8 +28,11 @@ import { CommonModule, JsonPipe } from '@angular/common';
   styleUrl: './board-column.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BoardColumnComponent {
-  tasks = input<Task[]>();
+export class BoardColumnComponent  {
+  readonly tasks = input<Task[]>();
+  taskLength = computed(() => {
+    return this.tasks()?.length;
+  });
   @Input() columnType!: TaskStatus;
   @Input() dropListId!: string;
   @Output() buttonEventEmitter = new EventEmitter<TaskStatus>();
@@ -36,6 +41,7 @@ export class BoardColumnComponent {
   handleButtonEvent($event: TaskStatus) {
     this.buttonEventEmitter.emit($event);
   }
+
   handelDrageEvent(task: Task) {
     this.dragStartEvent.emit(task);
   }
