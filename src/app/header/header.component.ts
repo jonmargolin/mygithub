@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-header',
@@ -8,7 +7,8 @@ import { MatDialog } from '@angular/material/dialog';
   imports: [MatIconModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent {
-  constructor(public dialog: MatDialog) {}
+  constructor() {}
 }

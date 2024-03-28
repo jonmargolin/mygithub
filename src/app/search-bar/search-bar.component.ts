@@ -1,4 +1,9 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Output,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
@@ -20,6 +25,7 @@ import { DebounceDirective } from '../directive/debounce.directive';
   ],
   templateUrl: './search-bar.component.html',
   styleUrl: './search-bar.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchBarComponent {
   @Output() valueChanged = new EventEmitter<string>();
@@ -29,7 +35,6 @@ export class SearchBarComponent {
       const value = currentEvent.target.value;
       this.valueChanged.emit(value);
     }
-    // Implement your search or other logic with the value here
   }
 }
 interface ExtendedEventTarget extends EventTarget {
