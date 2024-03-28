@@ -34,7 +34,6 @@ export const TaskStore = signalStore(
   })),
   withMethods((store, apiService = inject(ApiService)) => ({
     addTask(title: string, status: TaskStatus): void {
-      // 👇 Updating state using the `patchState` function.
       const task: Task = {
         id: uuidv4(),
         title: title,

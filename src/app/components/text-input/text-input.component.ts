@@ -32,7 +32,6 @@ export class TextInputComponent {
 
   onEnter(value: string): void {
     this.inputTextEventEmitter.emit(value);
-    // Add your logic to handle the input value here
   }
   onOutsideClick() {
     this.closeInputTextEventEmitter.emit();

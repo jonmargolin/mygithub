@@ -14,7 +14,6 @@ export class DragDropDirective {
   }
 
   @HostListener('drop', ['$event']) onDropEvent(event: DragEvent) {
-    console.log('Drop event captured', event);
     event.preventDefault();
     this.dropEventEmitter.emit();
   }

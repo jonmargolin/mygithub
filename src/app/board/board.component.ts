@@ -8,14 +8,12 @@ import {
 import { BoardColumnComponent } from '../board-column/board-column.component';
 import { TaskStore } from '../board-store/borad.store';
 import { Task, TaskStatus } from '../board-store/board.model';
-import { TaskService } from '../services/task-service.service';
 import { DragDropDirective } from '../directive/drag-drop.directive';
 
 @Component({
   selector: 'app-board',
   standalone: true,
   imports: [BoardColumnComponent, DragDropDirective],
-  providers: [TaskService],
   templateUrl: './board.component.html',
   styleUrl: './board.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -29,9 +27,7 @@ export class BoardComponent {
   handleButtonEmit($event: TaskStatus) {
     this.buttonEventEmitter.emit($event);
   }
-  constructor() {
-    console.log('board', this.store.tasks());
-  }
+  constructor() {}
   handleDrop(targetStatus: TaskStatus) {
     if (
       this.currentDraggedTask &&
