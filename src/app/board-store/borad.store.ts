@@ -6,16 +6,21 @@ import {
   withState,
 } from '@ngrx/signals';
 import { Task, TaskStatus } from './board.model';
-import { taskMock } from './task.mock';
-import { computed } from '@angular/core';
+import { computed, inject } from '@angular/core';
+import { rxMethod } from '@ngrx/signals/rxjs-interop';
+import { debounceTime, distinctUntilChanged, pipe, switchMap } from 'rxjs';
+import { tapResponse } from '@ngrx/operators';
+import { ApiService } from '../services/api.service';
 type TaskState = {
   tasks: Task[];
   search: string;
+  isLoading: boolean;
 };
 
 const initialState: TaskState = {
-  tasks: taskMock,
+  tasks: [],
   search: '',
+  isLoading: true,
 };
 export const TaskStore = signalStore(
   withState(initialState),
@@ -26,7 +31,7 @@ export const TaskStore = signalStore(
     ),
     done: computed(() => filterTask(tasks(), TaskStatus.done, search())),
   })),
-  withMethods((store) => ({
+  withMethods((store, apiService = inject(ApiService)) => ({
     addTask(title: string, status: TaskStatus): void {
       // 👇 Updating state using the `patchState` function.
       const task: Task = {
@@ -58,6 +63,21 @@ export const TaskStore = signalStore(
     searchChange(text: string): void {
       patchState(store, () => ({ search: text }));
     },
+    loadTask: rxMethod<void>(
+      pipe(
+        debounceTime(600),
+        distinctUntilChanged(),
+        switchMap(() => {
+          return apiService.getTasks().pipe(
+            tapResponse({
+              next: (tasks: Task[]) => patchState(store, { tasks: tasks }),
+              error: console.error,
+              finalize: () => patchState(store, { isLoading: false }),
+            }),
+          );
+        }),
+      ),
+    ),
   })),
 );
 const removeTask = (id: string, tasks: Task[]): Task[] => {

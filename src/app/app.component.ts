@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { TaskStore } from './board-store/borad.store';
 import { TaskService } from './services/task-service.service';
 import { TaskStatus } from './board-store/board.model';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-root',
@@ -21,16 +22,17 @@ import { TaskStatus } from './board-store/board.model';
     BoardComponent,
     TextInputComponent,
     CommonModule,
+    MatProgressSpinnerModule,
   ],
   providers: [TaskStore, TaskService],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'my-github';
   readonly store = inject(TaskStore);
-  constructor(public taskService: TaskService) {
-   
+  constructor(public taskService: TaskService) {}
+  ngOnInit() {
+    this.store.loadTask();
   }
-
   handleBoardEvent($event: TaskStatus) {
     this.taskService.updateColumnType($event, true);
   }
@@ -46,5 +48,5 @@ export class AppComponent {
   }
   handleValueChnage($event: string) {
     this.store.searchChange($event);
-    }
+  }
 }
