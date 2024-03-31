@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Task } from '../board-store/board.model';
-import { taskMock } from '../board-store/task.mock';
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +11,8 @@ export class ApiService {
   constructor(private http: HttpClient) {}
 
   getTasks(): Observable<Task[]> {
-    return of(taskMock);
+    return this.http.get<Task[]>('https://lj14g.wiremockapi.cloud/mockdata');
+    // remove this for debugging with mock data
+    //+ return of(taskMock);
   }
 }

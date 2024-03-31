@@ -12,6 +12,8 @@ import { debounceTime, distinctUntilChanged, pipe, switchMap } from 'rxjs';
 import { tapResponse } from '@ngrx/operators';
 import { ApiService } from '../services/api.service';
 import { v4 as uuidv4 } from 'uuid';
+import { NotificationService } from '../services/notification.service';
+import { HttpErrorResponse } from '@angular/common/http';
 type TaskState = {
   tasks: Task[];
   search: string;
@@ -32,54 +34,64 @@ export const TaskStore = signalStore(
     ),
     done: computed(() => filterTask(tasks(), TaskStatus.done, search())),
   })),
-  withMethods((store, apiService = inject(ApiService)) => ({
-    addTask(title: string, status: TaskStatus): void {
-      const task: Task = {
-        id: uuidv4(),
-        title: title,
-        created: '201.100200',
-        status: status,
-      };
-      patchState(store, (state) => ({ tasks: [...state.tasks, task] }));
-    },
-    moveTaskColumn(id: string, column: TaskStatus): void {
-      patchState(store, (state) => ({
-        tasks: state.tasks.map((item) => {
-          if (item.id === id) {
-            return {
-              id: item.id,
-              title: item.title,
-              created: item.created,
-              status: column,
-            };
-          }
-          return item;
-        }),
-      }));
-    },
-    removeTask(id: string): void {
-      patchState(store, (state) => ({ tasks: removeTask(id, state.tasks) }));
-    },
-    searchChange(text: string): void {
-      patchState(store, () => ({ search: text }));
-    },
-    loadTask: rxMethod<void>(
-      pipe(
-        debounceTime(600),
-        distinctUntilChanged(),
-        switchMap(() => {
-          return apiService.getTasks().pipe(
-            tapResponse({
-              next: (tasks: Task[]) => patchState(store, { tasks: tasks }),
-              error: console.error,
-              finalize: () => patchState(store, { isLoading: false }),
-            }),
-          );
-        }),
+  withMethods(
+    (
+      store,
+      apiService = inject(ApiService),
+      notificationService = inject(NotificationService),
+    ) => ({
+      addTask(title: string, status: TaskStatus): void {
+        const task: Task = {
+          id: uuidv4(),
+          title: title,
+          created: '201.100200',
+          status: status,
+        };
+        patchState(store, (state) => ({ tasks: [...state.tasks, task] }));
+      },
+      moveTaskColumn(id: string, column: TaskStatus): void {
+        patchState(store, (state) => ({
+          tasks: state.tasks.map((item) => {
+            if (item.id === id) {
+              return {
+                id: item.id,
+                title: item.title,
+                created: item.created,
+                status: column,
+              };
+            }
+            return item;
+          }),
+        }));
+      },
+      removeTask(id: string): void {
+        patchState(store, (state) => ({ tasks: removeTask(id, state.tasks) }));
+      },
+      searchChange(text: string): void {
+        patchState(store, () => ({ search: text }));
+      },
+      loadTask: rxMethod<void>(
+        pipe(
+          debounceTime(600),
+          distinctUntilChanged(),
+          switchMap(() => {
+            return apiService.getTasks().pipe(
+              tapResponse({
+                next: (tasks: Task[]) => patchState(store, { tasks: tasks }),
+                error: (error: HttpErrorResponse) =>
+                  print(notificationService, error),
+                finalize: () => patchState(store, { isLoading: false }),
+              }),
+            );
+          }),
+        ),
       ),
-    ),
-  })),
+    }),
+  ),
 );
+const print = (notification: NotificationService, error: HttpErrorResponse) => {
+  notification.notify(error.statusText);
+};
 const removeTask = (id: string, tasks: Task[]): Task[] => {
   const index = tasks.findIndex((task) => task.id === id);
   const taskList = [...tasks];
